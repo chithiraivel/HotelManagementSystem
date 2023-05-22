@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'poppins';
+    src: local('poppins'),
+        url('../../assets/Fonts/poppins/Poppins-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Rajdhani';
+    src: local('Rajdhani'),
+        url('../../assets/Fonts/Rajdhani/Rajdhani-Regular.ttf');
+}
+.diamond{
+    background-image: url('../../assets/images/diamond.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.css-6hp17o-MuiList-root-MuiMenu-list {
+background-color: #2e4765;
+color: white;
+}

@@ -21,6 +21,16 @@
 
 .sidebar__item {
     padding: 0 20px;
+   
+}
+
+.sidebar_module:hover {
+    color: #2daab8;
+
+}
+
+.sidebar_module:active {
+    color: #2daab8;
 }
 
 .sidebar__item-inner {
@@ -50,4 +60,7 @@
             var(--main-color),
             var(--second-color)); */
     color: #2daab8;
+}
+.active{
+    background-color: red;
 }

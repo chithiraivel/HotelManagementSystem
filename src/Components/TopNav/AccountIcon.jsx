@@ -14,8 +14,11 @@ import Logout from '@mui/icons-material/Logout';
 import AC from '../../assets/images/pic1.png'
 import { useContext } from 'react';
 import { loginContext } from '../../App';
+import { Person } from '@mui/icons-material';
+import '../../Components/Layout/layout.css'
+
 export default function AccountMenu() {
-    const {login,setLogin}=useContext(loginContext)
+    const { login, setLogin } = useContext(loginContext)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -26,12 +29,13 @@ export default function AccountMenu() {
     };
     const logOut = () => {
         setLogin(false);
+        localStorage.clear();
     }
     return (
-        <React.Fragment>
+        <div >
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
 
-                <Tooltip title="Account settings">
+                <Tooltip title="Account">
                     <IconButton
                         onClick={handleClick}
                         size="small"
@@ -44,7 +48,7 @@ export default function AccountMenu() {
                     </IconButton>
                 </Tooltip>
             </Box>
-            <Menu
+            <Menu 
                 anchorEl={anchorEl}
                 id="account-menu"
                 open={open}
@@ -61,6 +65,7 @@ export default function AccountMenu() {
                             height: 32,
                             ml: -0.5,
                             mr: 1,
+                            backgroundColor:'#2e4765'
                         },
                         '&:before': {
                             content: '""',
@@ -73,6 +78,7 @@ export default function AccountMenu() {
                             bgcolor: 'background.paper',
                             transform: 'translateY(-50%) rotate(45deg)',
                             zIndex: 0,
+                           
                         },
                     },
                 }}
@@ -80,31 +86,34 @@ export default function AccountMenu() {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem onClick={handleClose}>
-                    <Avatar /> Profile
+                    Chithirai vel
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                {/* <MenuItem onClick={handleClose}>
                     <Avatar /> My account
-                </MenuItem>
+                </MenuItem> */}
                 <Divider />
-                <MenuItem onClick={handleClose}>
+                {/* <MenuItem onClick={handleClose}>
                     <ListItemIcon>
                         <PersonAdd fontSize="small" />
                     </ListItemIcon>
                     Add another account
+                </MenuItem> */}
+                <MenuItem onClick={handleClose}>
+                    <Person /> My Profile
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <Settings fontSize="small" />
-                    </ListItemIcon>
+                    
+                        <Settings/>
+                    
                     Settings
                 </MenuItem>
                 <MenuItem onClick={logOut}>
-                    <ListItemIcon>
-                        <Logout fontSize="small" />
-                    </ListItemIcon>
+                   
+                        <Logout />
+                    
                     Logout
                 </MenuItem>
             </Menu>
-        </React.Fragment>
+        </div>
     );
 }

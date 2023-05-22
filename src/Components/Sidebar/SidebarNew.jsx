@@ -12,17 +12,19 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import sidebar_items from '../../assets/jsonData/sidebar_routes.json'
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import HMS from '../../assets/images/logo.png'
+import HMS from '../../assets/images/resort.webp'
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import AccountMenu from '../TopNav/AccountIcon';
 import '../Sidebar/sidebar.css'
-import { Link } from 'react-router-dom';
-
+import { Link, useLocation } from 'react-router-dom';
+import { sidebar_routes } from '../../assets/jsonData/sidebar_routes';
+import { Badge, Card, CardContent, Icon, Typography } from '@mui/material';
+import Routes1 from '../Routes1';
+import '../../Components/Layout/layout.css'
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -31,6 +33,7 @@ const Search = styled('div')(({ theme }) => ({
     backgroundColor: '#f5f7fd',
     marginTop: '20px',
     alignItems: 'center',
+
     marginLeft: 0,
     borderRadius: '50px',
     width: '100%',
@@ -72,31 +75,36 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 function SideBarNew(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const location=useLocation()
+  console.log(location.pathname);
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+    const handleclick=(index)=>{
+        setIndex(index)
+    }
     const active = props.active ? 'active' : ''
+    const [index1,setIndex]=React.useState('')
     const drawer = (
         <div style={{ marginTop: '30px' }}>
             <Toolbar>
-                <img src={HMS}></img>
+                <img src={HMS} height="100%" width="100%"/>
             </Toolbar>
 
-            <List>
-                {sidebar_items.map((text, index) => (
-                    <ListItem key={text} disablePadding >
-                        <Link to={text.route} style={{ textDecoration: 'none' }} >
-                            <ListItemButton sx={{ '&:hover': { background: '#fff', textDecoration: 'none' } }}>
-                                <ListItemIcon className={`sidebar__item-inner `}>
-                                    <i className={text.icon}></i>
+            <List >
+                {sidebar_routes.map((text, index) => (
+                    <ListItem key={text} disablePadding className={`sidebar_module ${active}`} style={{backgroundColor:location.pathname==text.route || location.pathname==text.route2 ? '#2daab8':"",color:index==index1 ? '#fff':""}} onClick={()=>handleclick(index)}>
+                        <Link to={text.route} style={{ textDecoration: 'none',width:'250px' }} >
+                            <ListItemButton className='sidebar_module' sx={{ '.MuiButtonBase-root': { '&:active': { color: '#2daab8' } }, '&:hover': { color: '#fff', textDecoration: 'none' } }} >
+                                <ListItemIcon className={`sidebar__item-inner `} >
+                                    <Icon sx={{ overflow: 'visible', position: 'relative', top: '-6px' }}>{text.icon}</Icon>
                                 </ListItemIcon>
-                                <ListItemText primary={text.display_name} sx={{ textDecoration: 'none' }} />
+                                <ListItemText primary={text.display_name} sx={{ '.MuiTypography-root': { '&:hover': { color: '#2daab8' }, fontFamily: 'poppins', fontSize: '16px', }, color: '#676b84', textDecoration: 'none', fontWeight: 400 }} />
                             </ListItemButton>
                         </Link>
                     </ListItem>
@@ -115,8 +123,8 @@ function SideBarNew(props) {
                 position="fixed"
                 sx={{
                     background: '#fff',
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
-                    ml: { sm: `${drawerWidth}px` },
+                    width: { md: `calc(100% - ${drawerWidth}px)` },
+                    ml: { md: `${drawerWidth}px` },
                     height: '100px',
                 }}
             >
@@ -128,11 +136,11 @@ function SideBarNew(props) {
                             aria-label="open drawer"
                             edge="start"
                             onClick={handleDrawerToggle}
-                            sx={{ mr: 2, display: { sm: 'none' } }}
+                            sx={{ mr: 2, display: { sm: 'block', md: 'none' } }}
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Search>
+                        <Search sx={{ display: { md: 'block', sm: 'none', xs: 'none' } }}>
                             <SearchIconWrapper>
                                 <SearchIcon sx={{ color: '#acb2b8' }} />
                             </SearchIconWrapper>
@@ -143,8 +151,12 @@ function SideBarNew(props) {
                             />
                         </Search>
                         <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-evenly', width: '23%', alignItems: 'center' }}>
-                            <NotificationsOutlinedIcon sx={{ color: '#929bb5', fontWeight: '100', fontSize: '35px', cursor: 'pointer' }} />
-                            <MessageOutlinedIcon sx={{ color: '#929bb5', fontWeight: '100', fontSize: '35px', cursor: 'pointer' }} />
+                            <Badge badgeContent={3}color='primary'>
+                            <NotificationsOutlinedIcon   sx={{ display: { md: 'block', sm: 'none', xs: 'none' }, color: '#929bb5', fontWeight: '100', fontSize: '35px', cursor: 'pointer' }} />
+                            </Badge>
+                            <Badge badgeContent={10}color='primary'>
+                            <MessageOutlinedIcon sx={{ display: { md: 'block', sm: 'none', xs: 'none' }, color: '#929bb5', fontWeight: '100', fontSize: '35px', cursor: 'pointer' }} />
+                            </Badge>
                             <AccountMenu />
                         </div>
 
@@ -153,7 +165,7 @@ function SideBarNew(props) {
             </AppBar>
             <Box
                 component="nav"
-                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+                sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
                 aria-label="mailbox folders"
             >
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -166,7 +178,7 @@ function SideBarNew(props) {
                         keepMounted: true, // Better open performance on mobile.
                     }}
                     sx={{
-                        display: { xs: 'block', sm: 'none' },
+                        display: { xs: 'block', sm: 'block', md: 'none' },
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                     }}
                 >
@@ -175,7 +187,7 @@ function SideBarNew(props) {
                 <Drawer
                     variant="permanent"
                     sx={{
-                        display: { xs: 'none', sm: 'block' },
+                        display: { xs: 'none', sm: 'none', md: 'block' },
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                     }}
                     open
@@ -188,7 +200,16 @@ function SideBarNew(props) {
                 sx={{ flexGrow: 1, mt: 5, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
+                {/* <Dashboardpage /> */}
+                <Routes1 />
 
+                {/* <Card sx={{ mt: 5, pt: 2, borderRadius: '10px', height: '80px',ml:2 }}>
+                    <CardContent sx={{ background: '#fff' }}>
+                        <Typography sx={{ mb: 0, textAlign: 'center', fontFamily: 'poppins', fontSize: '14px',color:'gray' }} >
+                           2020 © Influence - Designed by  Dashboard
+                        </Typography>
+                    </CardContent>
+                </Card> */}
             </Box>
         </Box>
     );

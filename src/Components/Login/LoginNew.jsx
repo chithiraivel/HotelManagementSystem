@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
 import { Button, Card, CardContent, Grid, TextField, Typography } from '@mui/material';
-import HMS from '../../assets/images/banner.png'
+import HMS from '../../assets/images/resort.webp'
 import '../Login/Login.css'
 import { loginContext } from '../../App';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 function LoginNew() {
     const { login, setLogin } = useContext(loginContext);
+    const navi=useNavigate()
     const users = [
         {
             username: 'admin',
@@ -19,10 +21,12 @@ function LoginNew() {
     const checkUser = () => {
         const usercheck = users.find((user) => (user.username === username && user.password === password))
         console.log(usercheck)
+        localStorage.setItem("login", true)
         if (usercheck) {
-            setLogin(true) 
+            setLogin(true)
+            navi('/')
         } else {
-alert("Wrong username or password")
+            alert("Wrong username or password")
         }
 
 

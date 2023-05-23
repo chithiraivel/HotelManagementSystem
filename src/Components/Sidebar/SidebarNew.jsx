@@ -203,13 +203,13 @@ function SideBarNew(props) {
                 {/* <Dashboardpage /> */}
                 <Routes1 />
 
-                {/* <Card sx={{ mt: 5, pt: 2, borderRadius: '10px', height: '80px',ml:2 }}>
+                 <Card sx={{ mt: 5, pt: 2, borderRadius: '10px', height: '80px',ml:0 }}>
                     <CardContent sx={{ background: '#fff' }}>
                         <Typography sx={{ mb: 0, textAlign: 'center', fontFamily: 'poppins', fontSize: '14px',color:'gray' }} >
-                           2020 © Influence - Designed by  Dashboard
+                           2020 © Influence - Designed by  Chithirai vel S
                         </Typography>
                     </CardContent>
-                </Card> */}
+                </Card> 
             </Box>
         </Box>
     );

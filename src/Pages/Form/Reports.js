@@ -144,7 +144,7 @@ console.log(obj);
   return (
     <>
 
-   <AppBreadcrumbs crntPage='RoomForm' path='/RoomForm' />
+   <AppBreadcrumbs crntPage='ReportsForm' path='/ReportsForm' />
 
     <div className='card'>
 

@@ -68,9 +68,10 @@ const TransactionTable = () => {
 
     const header = [
         { field: "Transaction_id", headerName: "Id", width: 140, headerClassName: "super-app-theme--header", headerAlign: 'start' },
-        { field: "PaymentDate", headerName: "PaymentDate", width: 240, headerClassName: "super-app-theme--header", headerAlign: 'start' },
-        { field: "TransactionDate", headerName: "TransactionDate", width: 240, headerClassName: "super-app-theme--header", headerAlign: 'start' },
-        { field: "PaymentAmount", headerName: "PaymentAmount", width: 250, headerClassName: "super-app-theme--header", headerAlign: 'start' },
+        { field: "TransactionName", headerName: "TransactionName", width: 140, headerClassName: "super-app-theme--header", headerAlign: 'start' },
+        { field: "PaymentDate", headerName: "PaymentDate", width: 200, headerClassName: "super-app-theme--header", headerAlign: 'start' },
+        { field: "TransactionDate", headerName: "TransactionDate", width: 200, headerClassName: "super-app-theme--header", headerAlign: 'start' },
+        { field: "PaymentAmount", headerName: "PaymentAmount", width: 200, headerClassName: "super-app-theme--header", headerAlign: 'start' },
         
 
         {

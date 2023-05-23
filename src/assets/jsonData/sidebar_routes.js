@@ -42,11 +42,13 @@ const sidebar_routes = [
     {
         display_name: "Transaction",
         route: "/Transaction",
+        route2:"/Transaction/TransactionForm",
         icon: <PaidIcon />
     },
     {
         display_name: "Reports",
         route: "/Reports",
+        route2: "/Reports/ReportsForm",
         icon: <ReportGmailerrorredIcon />
     }
 ]

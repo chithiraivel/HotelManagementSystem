@@ -73,10 +73,10 @@ const TransactionForm = () => {
 
 const updateReservation=()=>{
     const data={
-        CustomerFirstName,RoomName,DateIn,DateOut,count,ReservationDate,Reservation_id:parseInt(params.id)
+        TransactionName,PaymentAmount,PaymentDate,TransactionDate,Transaction_id:parseInt(params.id)
     }
 
-    instance.post('Reservation/update', data).then((res)=>{
+    instance.post('Transaction/update', data).then((res)=>{
         console.log( res.data.message);
         res.data.message.status ?
         Swal.fire({
@@ -86,7 +86,7 @@ const updateReservation=()=>{
                         
                     }).then((res)=>{
                         if(res.isConfirmed){
-                            navi('/Reservation')
+                            navi('/Transaction')
                         }
                     })
         
@@ -114,7 +114,7 @@ const updateReservation=()=>{
         // ListCustomer();
         // ListEmployee();
         ListReservation();
-        // update()
+        update()
         if(params.action == "read" || params.action == "update" ){
             update()  
         }
@@ -123,32 +123,18 @@ const updateReservation=()=>{
         }
     },[])
 
-    const [Error, setError] = useState({
-        CustomerFirstName:false,
-        TransactionName:false,
-        PaymentAmount: false,
-        PaymentDate:false,
-        TransactionDate:false
-    });
+    
     let NameReg = /^[-a-zA-Z-()]+(\s+[-a-zA-Z-()]+)*$/
    
     const handleSubmit=()=>{
-        const GenInvoice = { 
-            CustomerFirstName: CustomerFirstName.trim() === "" ? true :  false,
-            TransactionName: TransactionName.trim() === "" ? true :  false,
-            PaymentAmount: PaymentAmount.trim() === "" ? true : !(/^[1-9]\d*\.?[0-9]*$/.test(PaymentAmount)) ? "wrongpattern" : false,
-
-        };    
-        setError(GenInvoice)
-        if (Object.values(GenInvoice).some(val => val == false )){}
-        else {
-            console.log('out');
+        
+        
             if(params.action == "update"){
                 updateReservation()
             } else {
                 CreateReservation()
             }
-        }
+        
     }
 
     const getRoomDetails=(e,val)=>{
@@ -169,13 +155,13 @@ const updateReservation=()=>{
         }
     }
     const update=()=>{
-        instance.post('Reservation/viewbyid',{Reservation_id:params.id}).then((res)=>{
+        instance.post('Transaction/viewbyid',{Transaction_id:params.id}).then((res)=>{
             console.log(res.data.message.message.message[0]);
-            setCustomerFirstName(res.data.message.message.message[0].CustomerFirstName)
-            setReservationDate(res.data.message.message.message[0].ReservationDate)
-            setDateIn(res.data.message.message.message[0].DateIn)
-            setDateOut(res.data.message.message.message[0].DateOut)
-            setDateRange(res.data.message.message.message[0].DateRange)
+            setTransactionName(res.data.message.message.message[0].TransactionName)
+            setCustomerFirstName(res.data.message.message.message[0].TransactionName)
+            setPaymentAmount(res.data.message.message.message[0].PaymentAmount)
+            setPaymentDate(res.data.message.message.message[0].PaymentDate)
+            setTransactionDate(res.data.message.message.message[0].TransactionDate)
 
             
         })
@@ -184,6 +170,8 @@ const updateReservation=()=>{
      }
   return (
     <div className='card'>
+
+        
    <form  style={{ marginTop: '50px' }}>
             
                  <Grid container rowGap={3} columnGap={5} paddingLeft={4} paddingTop={3}>
@@ -203,7 +191,7 @@ const updateReservation=()=>{
                             fullWidth
 
                             disabled={disabled}
-                            error={Error.PaymentAmount} helperText={Error.PaymentAmount === "wrongpattern" ? "Starting and space,letter zero not allowed" : Error.PaymentAmount ?"Field cannot be empty ":""}
+                            
                             onChange={(e) => setPaymentAmount(e.target.value)}
                         />
                     </Grid>
@@ -218,7 +206,7 @@ const updateReservation=()=>{
                             fullWidth
 
                             disabled={true}
-                            error={Error.PaymentDate} helperText={Error.PaymentDate === "wrongpattern" ? "Starting and space,letter zero not allowed" : Error.PaymentDate ?"Field cannot be empty ":""}
+                            
                             onChange={(e) => setPaymentDate(e.target.value)}
                         />
                     </Grid>
@@ -233,7 +221,7 @@ const updateReservation=()=>{
                             fullWidth
 
                             disabled={true}
-                            error={Error.TransactionDate} helperText={Error.TransactionDate === "wrongpattern" ? "Starting and space,letter zero not allowed" : Error.TransactionDate ?"Field cannot be empty ":""}
+                           
                             onChange={(e) => setTransactionDate(e.target.value)}
                         />
                     </Grid>
